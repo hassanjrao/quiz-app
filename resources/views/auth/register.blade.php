@@ -39,9 +39,9 @@
                   @csrf
 
                   <div class="mb-4">
-                    <input type="text" class="form-control form-control-lg form-control-alt py-3" id="fullname" name="fullname" placeholder="Fullname">
-                    @if ($errors->has('fullname'))
-                      <span class="text-danger">{{ $errors->first('fullname') }}</span>
+                    <input type="text" class="form-control form-control-lg form-control-alt py-3" id="fullname" name="name" placeholder="Full Name">
+                    @if ($errors->has('name'))
+                      <span class="text-danger">{{ $errors->first('name') }}</span>
                     @endif
                   </div>
                   <div class="mb-4">

@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\HomeController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,14 +15,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Example Routes
-Route::view('/', 'landing');
-Route::match(['get', 'post'], '/dashboard', function(){
-    return view('dashboard');
-});
-Route::view('/pages/slick', 'pages.slick');
-Route::view('/pages/datatables', 'pages.datatables');
-Route::view('/pages/blank', 'pages.blank');
+
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home');
+
+
+Route::middleware("auth")->group(function(){
+
+    Route::get("/dashboard",[HomeController::class, "dashboard"])->name("dashboard");
+
+});

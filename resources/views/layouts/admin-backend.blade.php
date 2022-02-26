@@ -28,7 +28,8 @@
     <!-- You can include a specific file from public/css/themes/ folder to alter the default color theme of the template. eg: -->
     <!-- <link rel="stylesheet" id="css-theme" href="{{ asset('/css/themes/amethyst.css') }}"> -->
 
-
+    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.8.1/dist/alpine.min.js" defer></script>
+    @livewireStyles
 
     @yield('css_after')
 
@@ -82,9 +83,8 @@
 
             'sidebar-dark page-header-dark dark-mode'   Enable dark mode (light sidebar/header is not supported with dark mode)
         -->
-    <div id="page-container"
-        class="sidebar-o enable-page-overlay sidebar-dark side-scroll page-header-fixed main-content-narrow">
-        <!-- Side Overlay-->
+        <div id="page-container" class="sidebar-o sidebar-dark enable-page-overlay side-scroll page-header-fixed">
+            <!-- Side Overlay-->
         <aside id="side-overlay" class="fs-sm">
             <!-- Side Header -->
             <div class="content-header border-bottom">
@@ -265,6 +265,15 @@
                                 href="{{ route('admin.types.index') }}">
                                 <i class="nav-main-link-icon si si-cursor"></i>
                                 <span class="nav-main-link-name">Types</span>
+                            </a>
+                        </li>
+
+
+                        <li class="nav-main-item">
+                            <a class="nav-main-link{{ request()->is('admin/questions') ? ' active' : '' }}"
+                                href="{{ route('admin.questions.index') }}">
+                                <i class="nav-main-link-icon si si-cursor"></i>
+                                <span class="nav-main-link-name">Questions</span>
                             </a>
                         </li>
 
@@ -536,14 +545,13 @@
     <!-- <script src="{{ asset('/js/laravel.app.js') }}"></script> -->
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     @include('sweetalert::alert')
-
+    <script src="https://cdn.ckeditor.com/ckeditor5/26.0.0/classic/ckeditor.js"></script>
+    @livewireScripts
 
     @yield('js_after')
 
     <script>
         function confirmDelete(id) {
-
-
             Swal.fire({
                 title: 'Are you sure?',
                 text: "You won't be able to revert this!",
@@ -563,6 +571,46 @@
                 }
             })
         }
+
+        function ckeditor() {
+        return {
+            /**
+             * The function creates the editor and returns its instance
+             * @param $dispatch Alpine's magic property
+             */
+            create: async function($dispatch) {
+                // Create the editor with the x-ref
+                const editor = await ClassicEditor.create(this.$refs.ckEditor);
+                // Handle data updates
+                editor.model.document.on('change:data', function() {
+                    $dispatch('input', editor.getData())
+                });
+                // return the editor
+                return editor;
+            },
+            /**
+             * Initilizes the editor and creates a listener to recreate it after a rerender
+             * @param $dispatch Alpine's magic property
+             */
+            init: async function($dispatch) {
+                // Get an editor instance
+                const editor = await this.create($dispatch);
+                // Set the initial data
+                editor.setData('{{ old('description') }}')
+                // Pass Alpine context to Livewire's
+                const $this = this;
+                // On reinit, destroy the old instance and create a new one
+                Livewire.on('reinit', async function(e) {
+                    editor.setData('');
+                    editor.destroy()
+                        .catch( error => {
+                            console.log( error );
+                        } );
+                    await $this.create($dispatch);
+                });
+            }
+        }
+    }
     </script>
 </body>
 

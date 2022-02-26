@@ -8,8 +8,6 @@
 
 
 @section('content')
-
-
     <div class="modal fade" id="modal-block-popin" tabindex="-1" role="dialog" aria-labelledby="modal-block-popin"
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-popin" role="document">
@@ -101,7 +99,8 @@
                                         <a href="{{ route('admin.specialities.edit', $speciality->id) }}"
                                             class="btn btn-sm btn-alt-primary">Edit</a>
                                         <form id="form-{{ $speciality->id }}"
-                                            action="{{ route('admin.specialities.destroy', $speciality->id) }}" method="POST">
+                                            action="{{ route('admin.specialities.destroy', $speciality->id) }}"
+                                            method="POST">
                                             @method("DELETE")
                                             @csrf
                                             <input type="button" onclick="confirmDelete({{ $speciality->id }})"
@@ -111,7 +110,6 @@
                                     </div>
                                 </td>
                             </tr>
-
                         @endforeach
                     </tbody>
                 </table>
@@ -120,10 +118,9 @@
 
     </div>
     <!-- END Page Content -->
-
+@endsection
 
 @section('js_after')
-
     <script src="{{ asset('js/lib/jquery.min.js') }}"></script>
 
     <!-- Page JS Plugins -->
@@ -137,8 +134,4 @@
 
     <!-- Page JS Code -->
     <script src="{{ asset('js/pages/tables_datatables.js') }}"></script>
-
-   
-@endsection
-
 @endsection

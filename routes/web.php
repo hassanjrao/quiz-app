@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\ProfilesController;
+use App\Http\Controllers\Admin\QuestionsController;
 use App\Http\Controllers\Admin\SpecialitiesController;
 use App\Http\Controllers\Admin\TypesController;
 use App\Http\Controllers\HomeController;
@@ -40,5 +41,7 @@ Route::middleware(["auth","role:admin"])->prefix("admin")->name("admin.")->group
     Route::resource("specialities", SpecialitiesController::class);
 
     Route::resource("types", TypesController::class);
+
+    Route::resource("questions", QuestionsController::class);
 
 });

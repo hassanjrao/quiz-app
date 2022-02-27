@@ -21,7 +21,7 @@ return new class extends Migration
 
             $table->string("choice");
 
-            $table->boolean("is_correct")->default(false);
+            $table->boolean("is_correct")->default(false)->comment("1: correct, 0: incorrect");
 
             $table->timestamps();
         });

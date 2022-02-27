@@ -83,8 +83,8 @@
 
             'sidebar-dark page-header-dark dark-mode'   Enable dark mode (light sidebar/header is not supported with dark mode)
         -->
-        <div id="page-container" class="sidebar-o sidebar-dark enable-page-overlay side-scroll page-header-fixed">
-            <!-- Side Overlay-->
+    <div id="page-container" class="sidebar-o sidebar-dark enable-page-overlay side-scroll page-header-fixed">
+        <!-- Side Overlay-->
         <aside id="side-overlay" class="fs-sm">
             <!-- Side Header -->
             <div class="content-header border-bottom">
@@ -572,45 +572,53 @@
             })
         }
 
+        window.addEventListener('show-status', event => {
+            Swal.fire({
+                icon: event.detail.type,
+                title: event.detail.msg,
+            })
+        })
+
+
         function ckeditor() {
-        return {
-            /**
-             * The function creates the editor and returns its instance
-             * @param $dispatch Alpine's magic property
-             */
-            create: async function($dispatch) {
-                // Create the editor with the x-ref
-                const editor = await ClassicEditor.create(this.$refs.ckEditor);
-                // Handle data updates
-                editor.model.document.on('change:data', function() {
-                    $dispatch('input', editor.getData())
-                });
-                // return the editor
-                return editor;
-            },
-            /**
-             * Initilizes the editor and creates a listener to recreate it after a rerender
-             * @param $dispatch Alpine's magic property
-             */
-            init: async function($dispatch) {
-                // Get an editor instance
-                const editor = await this.create($dispatch);
-                // Set the initial data
-                editor.setData('{{ old('description') }}')
-                // Pass Alpine context to Livewire's
-                const $this = this;
-                // On reinit, destroy the old instance and create a new one
-                Livewire.on('reinit', async function(e) {
-                    editor.setData('');
-                    editor.destroy()
-                        .catch( error => {
-                            console.log( error );
-                        } );
-                    await $this.create($dispatch);
-                });
+            return {
+                /**
+                 * The function creates the editor and returns its instance
+                 * @param $dispatch Alpine's magic property
+                 */
+                create: async function($dispatch) {
+                    // Create the editor with the x-ref
+                    const editor = await ClassicEditor.create(this.$refs.ckEditor);
+                    // Handle data updates
+                    editor.model.document.on('change:data', function() {
+                        $dispatch('input', editor.getData())
+                    });
+                    // return the editor
+                    return editor;
+                },
+                /**
+                 * Initilizes the editor and creates a listener to recreate it after a rerender
+                 * @param $dispatch Alpine's magic property
+                 */
+                init: async function($dispatch) {
+                    // Get an editor instance
+                    const editor = await this.create($dispatch);
+                    // Set the initial data
+                    editor.setData('{{ old('description') }}')
+                    // Pass Alpine context to Livewire's
+                    const $this = this;
+                    // On reinit, destroy the old instance and create a new one
+                    Livewire.on('reinit', async function(e) {
+                        editor.setData('');
+                        editor.destroy()
+                            .catch(error => {
+                                console.log(error);
+                            });
+                        await $this.create($dispatch);
+                    });
+                }
             }
         }
-    }
     </script>
 </body>
 

@@ -1,5 +1,5 @@
 @extends('layouts.admin-backend')
-
+@section("page-title", "Dashboard - Admin")
 @section('content')
     <!-- Hero -->
     <div class="bg-body-light">

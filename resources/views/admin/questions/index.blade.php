@@ -1,4 +1,5 @@
 @extends("layouts.admin-backend")
+@section("page-title", "Questions - Admin")
 @section('css_before')
     <!-- Page JS Plugins CSS -->
     <link rel="stylesheet" href="{{ asset('js/plugins/datatables-bs5/dataTables.bootstrap5.min.css') }}">

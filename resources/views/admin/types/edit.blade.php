@@ -1,4 +1,5 @@
 @extends("layouts.admin-backend")
+@section("page-title", "Edit Type - Admin")
 @section('content')
 
 

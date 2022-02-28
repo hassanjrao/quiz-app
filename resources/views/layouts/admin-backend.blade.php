@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
 
-    <title>OneUI - Bootstrap 5 Admin Template &amp; UI Framework</title>
+    <title>@yield('page-title',"Admin Panel -Quiz App")</title>
 
     <meta name="description"
         content="OneUI - Bootstrap 5 Admin Template &amp; UI Framework created by pixelcave and published on Themeforest">
@@ -96,7 +96,7 @@
 
                 <!-- User Info -->
                 <div class="ms-2">
-                    <a class="text-dark fw-semibold fs-sm" href="javascript:void(0)">John Smith</a>
+                    <a class="text-dark fw-semibold fs-sm" href="javascript:void(0)">{{ auth()->user()->name }}</a>
                 </div>
                 <!-- END User Info -->
 
@@ -140,7 +140,7 @@
                     <span class="smini-visible">
                         <i class="fa fa-circle-notch text-primary"></i>
                     </span>
-                    <span class="smini-hide fs-5 tracking-wider">One<span class="fw-normal">UI</span></span>
+                    <span class="smini-hide fs-5 tracking-wider">Admin<span class="fw-normal"> Panel</span></span>
                 </a>
                 <!-- END Logo -->
 
@@ -255,7 +255,7 @@
                         <li class="nav-main-item">
                             <a class="nav-main-link{{ request()->is('admin/specialities') ? ' active' : '' }}"
                                 href="{{ route('admin.specialities.index') }}">
-                                <i class="nav-main-link-icon si si-cursor"></i>
+                                <i class="nav-main-link-icon si si-magic-wand"></i>
                                 <span class="nav-main-link-name">Specialities</span>
                             </a>
                         </li>
@@ -263,7 +263,8 @@
                         <li class="nav-main-item">
                             <a class="nav-main-link{{ request()->is('admin/types') ? ' active' : '' }}"
                                 href="{{ route('admin.types.index') }}">
-                                <i class="nav-main-link-icon si si-cursor"></i>
+
+                                <i class="nav-main-link-icon si si-book-open"></i>
                                 <span class="nav-main-link-name">Types</span>
                             </a>
                         </li>
@@ -272,7 +273,7 @@
                         <li class="nav-main-item">
                             <a class="nav-main-link{{ request()->is('admin/questions') ? ' active' : '' }}"
                                 href="{{ route('admin.questions.index') }}">
-                                <i class="nav-main-link-icon si si-cursor"></i>
+                                <i class="nav-main-link-icon si si-question"></i>
                                 <span class="nav-main-link-name">Questions</span>
                             </a>
                         </li>
@@ -467,10 +468,7 @@
 
                     <!-- Toggle Side Overlay -->
                     <!-- Layout API, functionality initialized in Template._uiApiLayout() -->
-                    <button type="button" class="btn btn-sm btn-alt-secondary ms-2" data-toggle="layout"
-                        data-action="side_overlay_toggle">
-                        <i class="fa fa-fw fa-list-ul fa-flip-horizontal"></i>
-                    </button>
+                   
                     <!-- END Toggle Side Overlay -->
                 </div>
                 <!-- END Right Section -->

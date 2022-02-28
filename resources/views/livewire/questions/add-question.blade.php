@@ -17,7 +17,7 @@
             <div class="col-lg-12 mb-4">
                 <div>
                     <label for="question">Question</label>
-                    <textarea placeholder="Type question" wire:model.debounce.9999999ms="question"
+                    <textarea placeholder="Type question" wire:model="question"
                         class="form-control
                             @error('question') is-invalid @enderror"
                         name="description"></textarea>
@@ -33,7 +33,7 @@
             <div class="col-lg-12 mb-4">
                 <div wire:ignore>
                     <label for="explanation">Explanation</label>
-                    <textarea placeholder="Type question explanation" wire:model.debounce.9999999ms="explanation"
+                    <textarea placeholder="Type question explanation" wire:model="explanation"
                         class="form-control
                             @error('explanation') is-invalid @enderror"
                         name="description"></textarea>
@@ -49,7 +49,7 @@
             <div class="col-lg-6 mb-4">
                 <div class="form-group">
                     <label for="speciality">Speciality</label>
-                    <select class="form-select" id="speciality" wire:model="speciality">
+                    <select wire:ignore class="form-select" id="speciality" wire:model="speciality">
                         <option value="">Select Speciality</option>
 
                         @foreach ($specialities as $speciality)
@@ -69,7 +69,7 @@
             <div class="col-lg-6 mb-4">
                 <div class="form-group">
                     <label for="type">Type</label>
-                    <select class="form-select" id="type" wire:model="type">
+                    <select wire:ignore class="form-select" id="type" wire:model="type">
                         <option value="">Select Type</option>
                         @foreach ($types as $type)
                             <option value="{{ $type->id }}">{{ $type->name }}</option>

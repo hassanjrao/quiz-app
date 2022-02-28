@@ -17,12 +17,25 @@ class ListQuestions extends Component
     public $specialities = [];
     public $types = [];
     public $sortColumn = 'id';
-    public $sortDirection = 'asc';
+    public $sortDirection = 'desc';
     public $searchColumns = [
         'question' => '',
         'speciality_id' => 0,
         'type_id' => 0
     ];
+
+    protected $listeners=["questionAdded"];
+
+    public function questionAdded()
+    {
+        $this->render();
+
+    }
+
+    public function viewQuestion($id)
+    {
+        $this->emit("viewQuestion", $id);
+    }
 
     public function mount()
     {

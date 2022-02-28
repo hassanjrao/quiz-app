@@ -25,7 +25,7 @@
                             Question
                             @if ($sortColumn == 'question')
                                 <i class="fas fa-sort-{{ $sortDirection=="asc" ? "down" : "up" }}" style="color:blue"></i>
-                            
+
                             @else
                                 <i class="fa fa-fw fa-sort" style="color:black"></i>
                             @endif
@@ -35,7 +35,7 @@
                             Speciality
                             @if ($sortColumn == 'speciality_name')
                                 <i class="fas fa-sort-{{ $sortDirection=="asc" ? "down" : "up" }}" style="color:blue"></i>
-                            
+
                             @else
                                 <i class="fa fa-fw fa-sort" style="color:black"></i>
                             @endif
@@ -45,7 +45,7 @@
                             Type
                             @if ($sortColumn == 'type_name')
                                 <i class="fas fa-sort-{{ $sortDirection=="asc" ? "down" : "up" }}" style="color:blue"></i>
-                            
+
                             @else
                                 <i class="fa fa-fw fa-sort" style="color:black"></i>
                             @endif
@@ -94,7 +94,7 @@
                             <td>{{ $question->type->name ?? '' }}</td>
 
                             <td class="text-center">
-                                <a class="btn btn-sm btn-alt-secondary js-bs-tooltip-enabled" href="#"
+                                <a class="btn btn-sm btn-alt-secondary js-bs-tooltip-enabled" wire:click='viewQuestion({{ $question->id }})'
                                     data-bs-toggle="tooltip" title="" data-bs-original-title="View">
                                     <i class="fa fa-fw fa-eye"></i>
                                 </a>

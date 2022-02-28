@@ -24,6 +24,8 @@ class ListQuestions extends Component
         'type_id' => 0
     ];
 
+    public $confirmDelete=false;
+
     protected $listeners=["questionAdded"];
 
     public function questionAdded()
@@ -35,6 +37,22 @@ class ListQuestions extends Component
     public function viewQuestion($id)
     {
         $this->emit("viewQuestion", $id);
+        $this->dispatchBrowserEvent("scroll-top");
+    }
+
+    public function deleteQuestion($id)
+    {
+
+        if($this->confirmDelete)
+        {
+            $question = Question::find($id);
+            $question->delete();
+            $this->render();
+        }
+        else
+        {
+           $this->dispatchBrowserEvent('confirm-delete-alert');
+        }
     }
 
     public function mount()

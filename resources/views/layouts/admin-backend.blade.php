@@ -468,7 +468,7 @@
 
                     <!-- Toggle Side Overlay -->
                     <!-- Layout API, functionality initialized in Template._uiApiLayout() -->
-                   
+
                     <!-- END Toggle Side Overlay -->
                 </div>
                 <!-- END Right Section -->
@@ -522,7 +522,8 @@
                             href="https://fiverr.com/hassanjavaidrao" target="_blank">hassanjrao</a>
                     </div>
                     <div class="col-sm-6 order-sm-1 py-1 text-center text-sm-start">
-                        <a class="fw-semibold" href="https://1.envato.market/AVD6j" target="_blank">Quiz App</a> &copy;
+                        <a class="fw-semibold" href="https://1.envato.market/AVD6j" target="_blank">Quiz App</a>
+                        &copy;
                         <span data-toggle="year-copy"></span>
                     </div>
                 </div>
@@ -547,6 +548,8 @@
     @livewireScripts
 
     @yield('js_after')
+
+
 
     <script>
         function confirmDelete(id) {
@@ -576,6 +579,13 @@
                 title: event.detail.msg,
             })
         })
+
+        window.addEventListener('scroll-top', event => {
+
+            $("body").scrollTop(0);
+
+        })
+
 
 
         function ckeditor() {

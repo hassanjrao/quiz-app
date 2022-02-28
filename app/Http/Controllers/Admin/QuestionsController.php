@@ -84,6 +84,13 @@ class QuestionsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $question=Question::findorfail($id);
+
+        $question->choices()->delete();
+
+        $question->delete();
+
+        return redirect()->route("admin.questions.index")->withToastSuccess('Successfully Deleted!');
+
     }
 }

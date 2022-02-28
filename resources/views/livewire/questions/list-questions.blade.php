@@ -15,7 +15,8 @@
 
                             Id
                             @if ($sortColumn == 'id')
-                                <i class="fas fa-sort-{{ $sortDirection=="asc" ? "down" : "up" }}" style="color:blue"></i>
+                                <i class="fas fa-sort-{{ $sortDirection == 'asc' ? 'down' : 'up' }}"
+                                    style="color:blue"></i>
                             @else
                                 <i class="fa fa-fw fa-sort" style="color:black"></i>
                             @endif
@@ -24,8 +25,8 @@
                             wire:click="sortByColumn('question')">
                             Question
                             @if ($sortColumn == 'question')
-                                <i class="fas fa-sort-{{ $sortDirection=="asc" ? "down" : "up" }}" style="color:blue"></i>
-
+                                <i class="fas fa-sort-{{ $sortDirection == 'asc' ? 'down' : 'up' }}"
+                                    style="color:blue"></i>
                             @else
                                 <i class="fa fa-fw fa-sort" style="color:black"></i>
                             @endif
@@ -34,8 +35,8 @@
                             wire:click="sortByColumn('speciality_name')">
                             Speciality
                             @if ($sortColumn == 'speciality_name')
-                                <i class="fas fa-sort-{{ $sortDirection=="asc" ? "down" : "up" }}" style="color:blue"></i>
-
+                                <i class="fas fa-sort-{{ $sortDirection == 'asc' ? 'down' : 'up' }}"
+                                    style="color:blue"></i>
                             @else
                                 <i class="fa fa-fw fa-sort" style="color:black"></i>
                             @endif
@@ -44,8 +45,8 @@
                             wire:click="sortByColumn('type_name')">
                             Type
                             @if ($sortColumn == 'type_name')
-                                <i class="fas fa-sort-{{ $sortDirection=="asc" ? "down" : "up" }}" style="color:blue"></i>
-
+                                <i class="fas fa-sort-{{ $sortDirection == 'asc' ? 'down' : 'up' }}"
+                                    style="color:blue"></i>
                             @else
                                 <i class="fa fa-fw fa-sort" style="color:black"></i>
                             @endif
@@ -94,19 +95,27 @@
                             <td>{{ $question->type->name ?? '' }}</td>
 
                             <td class="text-center">
-                                <a class="btn btn-sm btn-alt-secondary js-bs-tooltip-enabled" wire:click='viewQuestion({{ $question->id }})'
-                                    data-bs-toggle="tooltip" title="" data-bs-original-title="View">
+                                <a class="btn btn-sm btn-alt-secondary js-bs-tooltip-enabled"
+                                    wire:click='viewQuestion({{ $question->id }})' data-bs-toggle="tooltip" title=""
+                                    data-bs-original-title="View">
                                     <i class="fa fa-fw fa-eye"></i>
                                 </a>
-                                <a class="btn btn-sm btn-alt-secondary js-bs-tooltip-enabled" data-bs-toggle="tooltip"
-                                    onclick="confirmDelete(240)" title="" data-bs-original-title="Delete">
-                                    <i class="fa fa-fw fa-times"></i>
-                                </a>
+                                
 
-                                <form id="form-240" action="#" method="POST">
-                                    <input type="hidden" name="_method" value="DELETE"> <input type="hidden"
-                                        name="_token" value="AAk2XVzfrFcqdVcyBRvWancFoj8aJRdZ91RCj7nt">
+                                <form id="form-{{ $question->id }}"
+                                    action="{{ route('admin.questions.destroy', $question->id) }}"
+                                    method="POST">
+                                    @method("DELETE")
+                                    @csrf
+
+                                    <a class="btn btn-sm btn-alt-secondary js-bs-tooltip-enabled"
+                                        data-bs-toggle="tooltip" data-bs-original-title="Delete" onclick="confirmDelete({{ $question->id }})">
+                                        <i class="fa fa-fw fa-times"></i>
+                                    </a>
+
                                 </form>
+
+
 
                             </td>
 
@@ -121,4 +130,33 @@
 
         </div>
     </div>
+
+
+
+
 </div>
+
+{{-- @section('js-after')
+<script>
+    window.addEventListener('confirm-delete-alert', event => {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                @confirmDelete = true
+                Swal.fire(
+                    'Deleted!',
+                    'The question has been deleted.',
+                    'success'
+                )
+            }
+        })
+    })
+</script>
+@endsection --}}

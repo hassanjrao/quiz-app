@@ -47,6 +47,38 @@
             </div>
 
             <div class="col-lg-6 mb-4">
+                <div wire:ignore>
+                    <label for="image">Image</label>
+                    <input type="file" class="form-control" wire:model='image' id="image">
+
+
+                </div>
+
+
+
+                @error('image')
+                    <div class="text-danger font-weight-bold">
+                        {{ $message }}
+                    </div>
+                @enderror
+            </div>
+
+            <div class="col-lg-6 mb-4">
+
+                <div wire:loading wire:target="image,oldImage" class="text-center mt-2">
+                    <div class="spinner-border text-primary" role="status">
+                        <span></span>
+                    </div>
+                </div>
+
+                @if ($image)
+                    <img src="{{ $image->temporaryUrl() }}" class="img-fluid">
+                @elseif($oldImage)
+                    <img src="{{ asset('storage/questions/' . $oldImage) }}" class="img-fluid">
+                @endif
+            </div>
+
+            <div class="col-lg-6 mb-4">
                 <div class="form-group">
                     <label for="speciality">Speciality</label>
                     <select wire:ignore class="form-select" id="speciality" wire:model="speciality">

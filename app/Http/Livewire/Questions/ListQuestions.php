@@ -107,7 +107,7 @@ class ListQuestions extends Component
                 } else if ($column == 'type_id') {
                     $questions->where($column, $value);
                 } else {
-                    $questions->where('questions.' . $column, 'ILIKE', '%' . $value . '%');
+                    $questions->where('questions.' . $column, 'LIKE', '%' . $value . '%');
                 }
             }
         }

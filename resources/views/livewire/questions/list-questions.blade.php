@@ -1,7 +1,7 @@
 <div class="block block-rounded">
     <div class="block-header block-header-default">
         <h3 class="block-title">
-            Questions
+            Questions ({{ $questions->total() }})
         </h3>
     </div>
     <div class="block-content block-content-full">
@@ -100,7 +100,7 @@
                                     data-bs-original-title="View">
                                     <i class="fa fa-fw fa-eye"></i>
                                 </a>
-                                
+
 
                                 <form id="form-{{ $question->id }}"
                                     action="{{ route('admin.questions.destroy', $question->id) }}"

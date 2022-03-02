@@ -14,7 +14,9 @@ return new class extends Migration
     public function up()
     {
         Schema::table('questions', function (Blueprint $table) {
-            $table->string("image")->after("explanation")->nullable();
+            $table->string("image_question")->after("explanation")->nullable();
+            $table->string("image_explanation")->after("image_question")->nullable();
+
         });
     }
 
@@ -26,8 +28,8 @@ return new class extends Migration
     public function down()
     {
         Schema::table('questions', function (Blueprint $table) {
-            $table->dropColumn("image");
-        
+            $table->dropColumn(["image_question", "image_explanation"]);
+
         });
     }
 };

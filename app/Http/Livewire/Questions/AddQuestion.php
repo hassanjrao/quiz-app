@@ -8,7 +8,7 @@ use App\Models\Type;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 use Livewire\WithFileUploads;
-use Image;
+use ImageQuestion;
 
 class AddQuestion extends Component
 {
@@ -17,14 +17,16 @@ class AddQuestion extends Component
     public $choices = [];
     public $question;
     public $explanation;
-    public $image;
+    public $imageQuestion;
+    public $imageExplanation;
     public $specialities;
     public $speciality;
     public $types;
     public $type;
     public $correct;
 
-    public $oldImage;
+    public $oldImageQuestion;
+    public $oldImageExplanation;
 
     public $editMode = false;
     public $question_id;
@@ -35,7 +37,8 @@ class AddQuestion extends Component
         'correct' => 'required',
         'speciality' => 'required',
         'type' => 'required',
-        "image" => "nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048"
+        "imageQuestion" => "nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048",
+        "imageExplanation" => "nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048"
     ];
 
     protected $messages = [
@@ -70,7 +73,7 @@ class AddQuestion extends Component
             $this->resetErrorBag();
             $this->resetValidation();
 
-            
+
 
             $this->question_id = $question->id;
             $this->question = $question->question;
@@ -78,15 +81,26 @@ class AddQuestion extends Component
             $this->speciality = $question->speciality_id;
             $this->type = $question->type_id;
 
-            if($question->image)
+            if($question->image_question)
             {
-                $this->image=null;
-                $this->oldImage = $question->image;
+                $this->imageQuestion=null;
+                $this->oldImageQuestion = $question->image_question;
 
             }
             else{
-                $this->image=null;
-                $this->oldImage = null;
+                $this->imageQuestion=null;
+                $this->oldImageQuestion = null;
+            }
+
+            if($question->image_explanation)
+            {
+                $this->imageExplanation=null;
+                $this->oldImageExplanation = $question->image_explanation;
+
+            }
+            else{
+                $this->imageExplanation=null;
+                $this->oldImageExplanation = null;
             }
 
 
@@ -117,16 +131,30 @@ class AddQuestion extends Component
             $question->speciality_id = $this->speciality;
             $question->type_id = $this->type;
 
-            if ($this->image) {
+            if ($this->imageQuestion) {
 
-                if($question->image)
+                if($question->image_question)
                 {
-                    Storage::delete("public/questions/".$question->image);
+                    Storage::delete("public/questions/".$question->image_question);
                 }
 
-                $file = $this->image->store("public/questions");
-                $question->image = basename($file);
+                $file = $this->imageQuestion->store("public/questions");
+                $question->image_question = basename($file);
             }
+
+
+            if ($this->imageExplanation) {
+
+                if($question->image_question)
+                {
+                    Storage::delete("public/explanation/".$question->image_question);
+                }
+
+                $file = $this->imageExplanation->store("public/explanation");
+                $question->image_explanation = basename($file);
+            }
+
+
 
             $question->save();
 
@@ -182,9 +210,15 @@ class AddQuestion extends Component
             "explanation" => $this->explanation
         ]);
 
-        if ($this->image) {
-            $file = $this->image->store("public/questions");
-            $question->image = basename($file);
+        if ($this->imageQuestion) {
+            $file = $this->imageQuestion->store("public/questions");
+            $question->image_question = basename($file);
+            $question->save();
+        }
+
+        if ($this->imageExplanation) {
+            $file = $this->imageExplanation->store("public/explanation");
+            $question->image_explanation = basename($file);
             $question->save();
         }
 

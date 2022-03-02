@@ -47,14 +47,22 @@
             </div>
 
             <div class="col-lg-6 mb-4">
-                <div wire:ignore>
-                    <label for="image">Image</label>
-                    <input type="file" class="form-control" wire:model='image' id="image">
-
-
+                <div wire:loading wire:target="imageQuestion,oldImageQuestion" class="text-center mt-2">
+                    <div class="spinner-border text-primary" role="status">
+                        <span></span>
+                    </div>
                 </div>
 
+                @if ($imageQuestion)
+                    <img src="{{ $imageQuestion->temporaryUrl() }}" width="100%" height="250px">
+                @elseif($oldImageQuestion)
+                    <img src="{{ asset('storage/questions/' . $oldImageQuestion) }}" width="100%" height="250px">
+                @endif
 
+                <div wire:ignore>
+                    <label for="imageQuestion">Image Question</label>
+                    <input type="file" class="form-control" wire:model='imageQuestion' id="imageQuestion">
+                </div>
 
                 @error('image')
                     <div class="text-danger font-weight-bold">
@@ -64,19 +72,33 @@
             </div>
 
             <div class="col-lg-6 mb-4">
-
-                <div wire:loading wire:target="image,oldImage" class="text-center mt-2">
+                <div wire:loading wire:target="imageExplanation,oldImageExplanation" class="text-center mt-2">
                     <div class="spinner-border text-primary" role="status">
                         <span></span>
                     </div>
                 </div>
 
-                @if ($image)
-                    <img src="{{ $image->temporaryUrl() }}" class="img-fluid">
-                @elseif($oldImage)
-                    <img src="{{ asset('storage/questions/' . $oldImage) }}" class="img-fluid">
+                @if ($imageExplanation)
+                    <img src="{{ $imageExplanation->temporaryUrl() }}" width="100%" height="250px">
+                @elseif($oldImageExplanation)
+                    <img src="{{ asset('storage/explanation/' . $oldImageExplanation) }}"  width="100%" height="250px">
                 @endif
+
+                <div wire:ignore>
+                    <label for="imageExplanation">Image Explanation</label>
+                    <input type="file" class="form-control" wire:model='imageExplanation' id="imageExplanation">
+
+
+                </div>
+
+                @error('imageExplanation')
+                    <div class="text-danger font-weight-bold">
+                        {{ $message }}
+                    </div>
+                @enderror
             </div>
+
+
 
             <div class="col-lg-6 mb-4">
                 <div class="form-group">
